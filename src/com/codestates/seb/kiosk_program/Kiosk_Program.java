@@ -6,7 +6,7 @@ public class Kiosk_Program {
   //TODO:
   // 메뉴 입력 및 사용자의 수량을 입력하기 위해 Scanner 객체 생성
   static Scanner sc = new Scanner(System.in);
-  int totalCost = 0;
+  static int totalCost = 0;
 
   /**
    * @menu_n_cost : 메뉴의 가격을 정의 합니다.
@@ -26,7 +26,7 @@ public class Kiosk_Program {
   static void input_print() {
     //TODO:
     System.out.println("안녕하세요 오월의 김밥입니다.");
-    System.out.println("*".repeat(25));
+    System.out.println("*".repeat(30));
   }
 
   /**
@@ -35,44 +35,62 @@ public class Kiosk_Program {
    * 해당 count() 메소드는 기능이 모두 구현되어 있습니다. Scanner 객체의 변수명만 확인해야 합니다.
    */
   static int count() {
-    System.out.println("[안내]원하시는 메뉴의 번호를 입력하여 주세요.");
-    System.out.println("1) 김밥(1000원) 2) 계란 김밥(1500원) 3) 충무 김밥(1000원) 4) 떡볶이(2000원)");
-    //sc == 최 상단에 입력받은 Scanner 객체
-    //변수명이 다르다면 하단의 이름을 수정해야 합니다.
-    int number = sc.nextInt();
-    int cost;
 
-    // 만약 사용자가 입력한 번호의 조건이 아래와 같다면,
-    // 0 이하의 조건
-    // 4 초과의 조건
-    // 둘 중 하나라도 참 인경우 참의 값을 반환
-    if (number <= 0 || number > 4) {
-      // [경고] 문구를 출력합니다.
-      System.out.println("[경고]메뉴에 포함된 번호를 입력하여 주세요.\n");
-      // 그리고 다시 본 함수가 동작하여 다시 메뉴의 번호를 입력하도록 합니다.
-      count();
-    }
+    int price;
 
-    // 이후 가격 연산을 위해
-    // 가격(menu_n_cost)을 number 변수에 재할당 합니다.
-    if (1 == number) {
-      cost = menu_1_cost;
-    } else if (2 == number) {
-      cost = menu_2_cost;
-    } else if (3 == number) {
-      cost = menu_3_cost;
-    } else {
-      cost = menu_4_cost;
-    }
-    return cost;
+    do {
+      // 안내 문구
+      System.out.println("[안내]원하시는 메뉴의 번호를 입력하여 주세요. 주문을 끝내시려면 0번을 눌러주세요.");
+      System.out.println("1) 김밥(1000원) 2) 계란 김밥(1500원) 3) 충무 김밥(1000원) 4) 떡볶이(2000원)");
+      
+      // 번호 입력창
+      int number = sc.nextInt();
 
+      // 번호가 0이 아닌 경우
+        // 0보다 작거나 4번을 초과하는 경우 -> 경고 문구와 함께 메서드 재실행
+        // 1-4번 사
+      if (!(number == 0)) {
+
+        if (number < 0 || number > 4) {
+          // [경고] 문구를 출력합니다.
+          System.out.println("[경고]메뉴에 포함된 번호를 입력하여 주세요.\n");
+          // 그리고 다시 본 함수가 동작하여 다시 메뉴의 번호를 입력하도록 합니다.
+          count();
+        } else {
+
+          switch (number) {
+            case 1:
+              System.out.println("111");
+              price = menu_1_cost;
+              totalCost = totalCost + cost(price);
+              break;
+            case 2:
+              price = menu_2_cost;
+              totalCost = totalCost + cost(price);
+              break;
+            case 3:
+              price = menu_3_cost;
+              totalCost = totalCost + cost(price);
+              break;
+            case 4:
+              price = menu_4_cost;
+              totalCost = totalCost + cost(price);
+          }
+        }
+      } else {
+        break;
+      }
+
+    } while (1 != 0);
+
+    return totalCost;
   }
 
   /**
    * 수량 입력 및 가격 연산을 진행하는 메서드를 정의합니다.
    * @수량 : 수량은 1 ~ 99 까지만 입력 받을 수 있도록 합니다.
    */
-  static void cost(int number) {
+  static int cost(int price) {
     // 안내 문구를 출력합니다.
     //TODO:
     System.out.println("메뉴의 수량을 입력해주세요. 최대 주문 가능 수량은 99개입니다.");
@@ -80,7 +98,7 @@ public class Kiosk_Program {
     // 입력받은 수량을 변수에 저장합니다.
     //TODO:
     int count = sc.nextInt();
-
+    int result = 0;
 
     // 조건에 따라 문구 출력, 재입력을 진행합니다.
     // 조건은 다음과 같습니다.
@@ -89,11 +107,11 @@ public class Kiosk_Program {
     //TODO:
     if(count <= 0 || count > 99) {
       System.out.println("잘못된 수량을 입력하셨습니다. 다시 입력해주세요.");
-      cost(number);
+      cost(price);
     } else  {
-      int result = number * count;
-      output_print(result);
+      result = price * count;
     }
+    return result;
   }
 
   /**
@@ -111,7 +129,8 @@ public class Kiosk_Program {
   public static void main(String[] args) {
     //TODO:
     input_print();
-    int number = count();
-    cost(number);
+
+    int totalCost = count();
+    output_print(totalCost);
   }
 }
