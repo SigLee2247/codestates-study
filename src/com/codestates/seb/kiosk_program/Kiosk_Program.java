@@ -5,6 +5,8 @@ import java.util.Scanner;
 public class Kiosk_Program {
   //TODO:
   // 메뉴 입력 및 사용자의 수량을 입력하기 위해 Scanner 객체 생성
+  static Scanner sc = new Scanner(System.in);
+  int totalCost = 0;
 
   /**
    * @menu_n_cost : 메뉴의 가격을 정의 합니다.
@@ -12,6 +14,10 @@ public class Kiosk_Program {
    * 해당 기능은 자바독(javadoc) 기능입니다.
    */
   //TODO:
+  final static int menu_1_cost = 1000; // 김밥
+  final static int menu_2_cost = 1500; // 계란 김밥
+  final static int menu_3_cost = 1000; // 충무 김밥
+  final static int menu_4_cost = 2000; // 떡볶이
 
   /**
    * 프로그램의 시작을 알리는 메서드입니다.
@@ -19,6 +25,8 @@ public class Kiosk_Program {
    */
   static void input_print() {
     //TODO:
+    System.out.println("안녕하세요 오월의 김밥입니다.");
+    System.out.println("*".repeat(25));
   }
 
   /**
@@ -32,6 +40,7 @@ public class Kiosk_Program {
     //sc == 최 상단에 입력받은 Scanner 객체
     //변수명이 다르다면 하단의 이름을 수정해야 합니다.
     int number = sc.nextInt();
+    int cost;
 
     // 만약 사용자가 입력한 번호의 조건이 아래와 같다면,
     // 0 이하의 조건
@@ -47,15 +56,16 @@ public class Kiosk_Program {
     // 이후 가격 연산을 위해
     // 가격(menu_n_cost)을 number 변수에 재할당 합니다.
     if (1 == number) {
-      number = menu_1_cost;
+      cost = menu_1_cost;
     } else if (2 == number) {
-      number = menu_2_cost;
+      cost = menu_2_cost;
     } else if (3 == number) {
-      number = menu_3_cost;
+      cost = menu_3_cost;
     } else {
-      number = menu_4_cost;
+      cost = menu_4_cost;
     }
-    return number;
+    return cost;
+
   }
 
   /**
@@ -65,15 +75,25 @@ public class Kiosk_Program {
   static void cost(int number) {
     // 안내 문구를 출력합니다.
     //TODO:
+    System.out.println("메뉴의 수량을 입력해주세요. 최대 주문 가능 수량은 99개입니다.");
 
     // 입력받은 수량을 변수에 저장합니다.
     //TODO:
+    int count = sc.nextInt();
+
 
     // 조건에 따라 문구 출력, 재입력을 진행합니다.
     // 조건은 다음과 같습니다.
     // 0 이하 || 99 초과
     // 두 조건 중 하나라도 참인경우 경고 문구 출력과 함께 다시 수량을 입력받을 수 있도록 합니다.
     //TODO:
+    if(count <= 0 || count > 99) {
+      System.out.println("잘못된 수량을 입력하셨습니다. 다시 입력해주세요.");
+      cost(number);
+    } else  {
+      int result = number * count;
+      output_print(result);
+    }
   }
 
   /**
@@ -81,6 +101,7 @@ public class Kiosk_Program {
    */
   static void output_print(int result) {
     //TODO:
+    System.out.println("고객님이 주문하신 메뉴의 총 금액은 " + result + "입니다.");
   }
 
   /**
@@ -89,5 +110,8 @@ public class Kiosk_Program {
    */
   public static void main(String[] args) {
     //TODO:
+    input_print();
+    int number = count();
+    cost(number);
   }
 }
