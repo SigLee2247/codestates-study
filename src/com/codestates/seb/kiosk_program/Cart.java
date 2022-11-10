@@ -6,10 +6,12 @@ import com.codestates.seb.kiosk_program.product.subProduct.Kimbab;
 import com.codestates.seb.kiosk_program.product.subProduct.Ramen;
 import com.codestates.seb.kiosk_program.product.subProduct.Tteokbokki;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Cart {
-    private Product[] products = new Product[0];
+    // private Product[] products = new Product[0];
+    private ArrayList<Product> products = new ArrayList<>();
     private Menu menu;
     private ProductRepository productRepository;
     private Scanner sc = new Scanner(System.in);
@@ -20,7 +22,7 @@ public class Cart {
     }
 
     public void addCart(int productId) {
-        Product product = productRepository.findById(productId);
+        Product product = productRepository.findById2(productId);
         chooseOptions(product);
         Product newProduct;
         if(product instanceof Kimbab) newProduct = new Kimbab((Kimbab) product);
@@ -29,12 +31,13 @@ public class Cart {
 
         addAmount(newProduct);
 
-        Product[] newProducts = new Product[products.length + 1];
+//        Product[] newProducts = new Product[products.length + 1];
+//
+//        System.arraycopy(products, 0, newProducts, 0, products.length);
+//        newProducts[newProducts.length - 1] = newProduct;
 
-        System.arraycopy(products, 0, newProducts, 0, products.length);
-        newProducts[newProducts.length - 1] = newProduct;
-
-        products = newProducts;
+//        products = newProducts;
+        products.add(newProduct);
 
         System.out.printf("%s 메뉴를 %d개 장바구니에 담았습니다.\n", newProduct.getName(), newProduct.getAmount());
     }
@@ -55,7 +58,7 @@ public class Cart {
     }
 
     private Product addAmount(Product product) {
-        int maxAmount = productRepository.findById(product.getProductId()).getAmount();
+        int maxAmount = productRepository.findById2(product.getProductId()).getAmount();
         System.out.print("선택하신 메뉴의 수량을 입력하여 주세요.");
         System.out.printf("( ※ 최대 주문 가능 수량 : %d ) : ",
                 maxAmount);
@@ -67,7 +70,7 @@ public class Cart {
         }
         else {
             product.setAmount(amount);
-            productRepository.findById(product.getProductId()).setAmount(maxAmount - amount);
+            productRepository.findById2(product.getProductId()).setAmount(maxAmount - amount);
         }
 
         return product;

@@ -14,7 +14,7 @@ public class KioskConfigurer {
     private Cart cart = new Cart(menu(), productRepository);
     private Discount discount;
 
-    public ProductRepository productRepository() { return new ProductRepository(); }
+    public ProductRepository productRepository() { return productRepository; }
 
     public Menu menu() { return new Menu(productRepository); }
 

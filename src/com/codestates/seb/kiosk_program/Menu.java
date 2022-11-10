@@ -33,7 +33,7 @@ public class Menu {
     protected void ramenMenu(ProductRepository productRepository) {
         System.out.println("라면 메뉴");
 
-        for(Product product : productRepository.getProducts()) {
+        for(Product product : productRepository.getProducts1()) {
             if(product instanceof Ramen)
                 eachPrint(product);
         }
@@ -43,7 +43,7 @@ public class Menu {
     protected void tteokbokkiMenu(ProductRepository productRepository) {
         System.out.println("떡볶이 메뉴");
 
-        for(Product product : productRepository.getProducts()) {
+        for(Product product : productRepository.getProducts1()) {
             if(product instanceof Tteokbokki)
                 eachPrint(product);
         }
@@ -53,7 +53,7 @@ public class Menu {
     protected void kimbapMenu(ProductRepository productRepository) {
         System.out.println("김밥 메뉴");
 
-        for(Product product : productRepository.getProducts()) {
+        for(Product product : productRepository.getProducts1()) {
             if(product instanceof Kimbab)
                 eachPrint(product);
         }
