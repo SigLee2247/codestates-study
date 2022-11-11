@@ -26,6 +26,10 @@ public class Menu {
 
         System.out.println("0) 장바구니     +) 주문하기");
 
+        System.out.println();
+
+        System.out.println("-) 상품 등록하기");
+
         System.out.print("원하시는 메뉴의 번호를 입력해 주세요. : ");
 
     }
@@ -61,7 +65,9 @@ public class Menu {
     }
 
     private void eachPrint(Product product) {
-        System.out.printf("%d) %s(%d원)\t", product.getProductId(), product.getName(), product.getPrice());
+        System.out.printf("%d) %s(%d원)", product.getProductId(), product.getName(), product.getPrice());
+        if(product.isSoldOut()) System.out.print(" (품절)");
+        System.out.print("\t");
     }
 
 }

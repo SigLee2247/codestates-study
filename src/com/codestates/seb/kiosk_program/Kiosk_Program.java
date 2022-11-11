@@ -53,12 +53,16 @@ public class Kiosk_Program {
             String selectMenu = sc.nextLine();
             if(selectMenu.equals("+"))
                 break;
+            if(selectMenu.equals("-")) {
+                productRepository.addProduct();
+                continue;
+            }
             int number = Integer.parseInt(selectMenu);
 
             if (number > 0) {
                 cart.addCart(number);
             } else if (number == 0){
-                cart.printAllCartProduct();
+                cart.printAllCartProduct(true);
             } else {
                 break;
             }

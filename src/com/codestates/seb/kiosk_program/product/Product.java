@@ -38,4 +38,6 @@ public class Product {
     public void setAmount(int amount) {
         this.amount = amount;
     }
+
+    public boolean isSoldOut() { return amount == 0 ? true : false; }
 }

@@ -11,7 +11,7 @@ import com.codestates.seb.kiosk_program.product.ProductRepository;
 public class KioskConfigurer {
 
     private ProductRepository productRepository = new ProductRepository();
-    private Cart cart = new Cart(menu(), productRepository);
+    private Cart cart = new Cart(productRepository);
     private Discount discount;
 
     public ProductRepository productRepository() { return productRepository; }
