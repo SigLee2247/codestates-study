@@ -65,69 +65,38 @@ public class stringifyJSON {
 
     //howto 입력된 값이 Object[]일 경우
       if(data instanceof Object[]) {
-
+        Object[] arr = (Object[]) data;
 
 
 
         //howto 순회하면서 배열을 생성할 수 있다.         [1,2,3]  ; [1,2,null,"코드스테이츠"];
 //      방법 1
-        Object[] arr = (Object[]) data;
-        for (int i = 0; i < arr.length; i++) {
+
+        /*for (int i = 0; i < arr.length; i++) {
           arr[i] = stringify(arr[i]);
         }
         return Arrays.toString(arr).replaceAll(" ","");
+*/
+        // todo 방법 2
+        if(arr.length == 0) return"[]";
+
+        String sol ="";
+
+        for (int i = 0; i < arr.length; i++) {
+          if(i == arr.length-1){
+            sol =sol + stringify(arr[i]);
+          }else sol += stringify(arr[i]) + ",";
         }
+          return "[" + sol + "]";
 
-        /*todo arr{1,2,3}
-   note               새 배열>> {2,3}          2           {3}
-            Sring total = stringity(arr[0]) + stringify(arr.length-1)
-                                                 arr[1]     stringify(arr[3])
-*/
-        //if(total.length)
-
-        /*if(arr.length == 0) return "[]";                //note 초기값이 빈배열일때
-        //if(arr.length == 1) return stringify(arr[0]);   //todo 길이가 1남으면 탈출
-
-//        if(arr.length >= 1)
-//        {
-
-        String total = "[";
-        total = total + stringify(arr[0]);
-
-        Object[] tail = Arrays.copyOfRange(arr,1,arr.length);   //todo 1번지부터 복사
-
-          if(tail.length !=0)
-          {
-            if(tail[0] instanceof String)
-              total += "," + "\"" + tail[0] + "\"";
-            else
-              total += "," + stringify(tail);
-
-              return total + "]";
-          }
-          else
-          //if(arr instanceof Object[])
-
-          //else
-            return total + "]";
-//        }
-*/
-
-      /*
-              todo
-                {1,2,3,4,5}
-                total       stringify(1 + , stringify({2,3,4,5})
-
-                )
-
-        */
-
-
-        //return total;
+        //todo 방법 3
 
 
 
-                         //note 0번지 배열이 필요한데 배열이 아니라고 뜨는 것이 문제
+      }
+
+
+
 
 
     //howto 입력된 값이 HashMap일 경우
