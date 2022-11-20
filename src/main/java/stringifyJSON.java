@@ -49,51 +49,101 @@ public class stringifyJSON {
     //입력된 값이 문자열일 경우
 
     //입력된 값이 Integer일 경우 : Integer -> String
-    if(data instanceof Integer){
+    if(data instanceof Integer) {
       return data.toString();
+//      return String.valueOf(data);
+//      return data+"";
+//      return ((Integer) data).toString();
     }
 
-    //입력된 값이 Boolean일 경우
-    if(data instanceof Boolean){
-      return data.toString();
+      //입력된 값이 Boolean일 경우
+      if(data instanceof Boolean){
+        return data.toString();
+//        return Boolean.valueOf(data.toString()) ? "true" : "false";
+
     }
 
     //howto 입력된 값이 Object[]일 경우
       if(data instanceof Object[]) {
-          //todo 탈출 조건 먼저 정하자
-          String total = "";
-          if(((Object[]) data).length == 0) return "[]";
-          if(((Object[]) data).length == 1) return stringify(((Object[])data)[0]);
-
-        Object[] tail = Arrays.copyOfRange((Object[])data,1,((Object[]) data).length);
-        total =stringify(((Object[])data)[0])+ "," + stringify(tail);
-        if(tail.length == 1 )
-            return stringify(tail);
-        return"[" + total +"]";
 
 
-      }                   //note 0번지 배열이 필요한데 배열이 아니라고 뜨는 것이 문제
 
+
+        //howto 순회하면서 배열을 생성할 수 있다.         [1,2,3]  ; [1,2,null,"코드스테이츠"];
+//      방법 1
+        Object[] arr = (Object[]) data;
+        for (int i = 0; i < arr.length; i++) {
+          arr[i] = stringify(arr[i]);
+        }
+        return Arrays.toString(arr).replaceAll(" ","");
+        }
+
+        /*todo arr{1,2,3}
+   note               새 배열>> {2,3}          2           {3}
+            Sring total = stringity(arr[0]) + stringify(arr.length-1)
+                                                 arr[1]     stringify(arr[3])
+*/
+        //if(total.length)
+
+        /*if(arr.length == 0) return "[]";                //note 초기값이 빈배열일때
+        //if(arr.length == 1) return stringify(arr[0]);   //todo 길이가 1남으면 탈출
+
+//        if(arr.length >= 1)
+//        {
+
+        String total = "[";
+        total = total + stringify(arr[0]);
+
+        Object[] tail = Arrays.copyOfRange(arr,1,arr.length);   //todo 1번지부터 복사
+
+          if(tail.length !=0)
+          {
+            if(tail[0] instanceof String)
+              total += "," + "\"" + tail[0] + "\"";
+            else
+              total += "," + stringify(tail);
+
+              return total + "]";
+          }
+          else
+          //if(arr instanceof Object[])
+
+          //else
+            return total + "]";
+//        }
+*/
+
+      /*
+              todo
+                {1,2,3,4,5}
+                total       stringify(1 + , stringify({2,3,4,5})
+
+                )
+
+        */
+
+
+        //return total;
+
+
+
+                         //note 0번지 배열이 필요한데 배열이 아니라고 뜨는 것이 문제
 
 
     //howto 입력된 값이 HashMap일 경우
 
     if (data instanceof HashMap) {
-      //howto 탈출 조건
-      if(((HashMap<?, ?>) data).isEmpty()) return "";
 
-      Set<Map.Entry<Object, Object>> entrySet = ((HashMap<Object,Object>)data).entrySet();
 
-      Iterator<Map.Entry<Object, Object>> entryIterator = entrySet.iterator();
-      String result = "";
-      result = result + "\"" + stringify(entryIterator.next().getKey()) + "\"" +":" + stringify(entryIterator.next().getValue()) ;
-      return null;
-//      while(entryIterator.hasNext()) {
-//        Map.Entry<Object, Object> entry = entryIterator.next();
-//        Object key = entry.getKey();
-//        Object value = entry.getValue();
-
-//      }
+      HashMap<Object, Object> map = (HashMap<Object, Object>) data;   //note data가 오브젝트형이니까 Hashmap 형으로 명시적 형변환을 할 필요가 있다.
+      HashMap<Object, Object> result = new LinkedHashMap<>();
+      //note 공식 : 스트림 혹은 인포문 쓰는 것을 권장
+      for(Map.Entry<Object,Object> entry : map.entrySet()){
+        String key = stringify(entry.getKey());
+        String value = stringify(entry.getValue());
+        result.put(key,value);
+      }
+      return result.toString().replaceAll("=",":").replaceAll(" ","");    //note 순서를 보장하지 않는 map >>> 순서를 보장해주는 LinkedHashMap을 이용하자
     }
 
 
