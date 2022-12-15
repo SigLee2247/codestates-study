@@ -23,10 +23,36 @@ public class MemberController {
         member1.put("phone", "010-1234-5678");
 
         members.put(memberId, member1);
+
+        for (String value : member1.keySet()) {
+            System.out.println("value = " + value);
+        }
+
     }
 
     //---------------- 여기서 부터 아래에 코드를 구현하세요! -------------------//
     // 1. 회원 정보 수정을 위한 핸들러 메서드 구현
     // 2. 회원 정보 삭제를 위한 핸들러 메서드 구현
+
+    @PatchMapping("/{member-id}")
+    public ResponseEntity patchMember(@PathVariable("member-id") long memberId,
+                                      @RequestParam("phone") String phone){
+
+        members.get(memberId).put("phone",phone);
+
+        System.out.println(members.get(memberId).get("phone"));
+
+
+        return new ResponseEntity<>(members, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{member-id}")
+    public ResponseEntity deleteMember(@PathVariable("member-id") long memberId){
+        members.remove(memberId);
+
+        return new ResponseEntity<>(members,HttpStatus.NO_CONTENT);
+    }
+
+
 
 }
