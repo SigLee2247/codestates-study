@@ -7,5 +7,8 @@
 
 * [예외 처리 강의 자료](https://github.com/codestates-seb/be-live-session-resources-42th/blob/9f0128aae6852690e23a8c6a1599d78a6b823416/%EB%9D%BC%EC%9D%B4%EB%B8%8C_%EC%84%B8%EC%85%98-2022.12.21(%EC%88%98)-%EC%98%88%EC%99%B8_%EC%B2%98%EB%A6%AC.pdf)
 
+* Spring Data JDBC 강의 자료
+  * [Spring Data JDBC 이용한 Hello World](https://github.com/codestates-seb/be-live-session-resources-42th/blob/e82e83bb697ed6ca394ac85673c55d84cafc8787/%EB%9D%BC%EC%9D%B4%EB%B8%8C_%EC%84%B8%EC%85%98-2022.12.22(%EB%AA%A9)-spring_data_jdbc%EB%9E%80.pdf)
+
 * 추가 자료
   * [버그 잡는 방법](https://github.com/codestates-seb/be-live-session-resources-42th/blob/a5504c25ff3e097692561f64b9d6f40cbb584569/%EB%B2%84%EA%B7%B8%20%EC%9E%A1%EB%8A%94%20%EB%B0%A9%EB%B2%95.pdf)
