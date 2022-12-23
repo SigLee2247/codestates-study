@@ -9,6 +9,7 @@
 
 * Spring Data JDBC 강의 자료
   * [Spring Data JDBC 이용한 Hello World](https://github.com/codestates-seb/be-live-session-resources-42th/blob/e82e83bb697ed6ca394ac85673c55d84cafc8787/%EB%9D%BC%EC%9D%B4%EB%B8%8C_%EC%84%B8%EC%85%98-2022.12.22(%EB%AA%A9)-spring_data_jdbc%EB%9E%80.pdf)
+  * [Spring Data JDBC를 이용한 Entity 설계 및 애플리케이션 구현](https://github.com/codestates-seb/be-live-session-resources-42th/blob/dc5692137a559e267b2e118cec49518c2f1bdb46/%EB%9D%BC%EC%9D%B4%EB%B8%8C_%EC%84%B8%EC%85%98-2022.12.23(%EA%B8%88)-spring_data_jdbc%EB%A5%BC_%ED%86%B5%ED%95%9C_%EB%8D%B0%EC%9D%B4%ED%84%B0_%EC%95%A1%EC%84%B8%EC%8A%A4_%EA%B3%84%EC%B8%B5_%EA%B5%AC%ED%98%84.pdf)
 
 * 추가 자료
   * [버그 잡는 방법](https://github.com/codestates-seb/be-live-session-resources-42th/blob/a5504c25ff3e097692561f64b9d6f40cbb584569/%EB%B2%84%EA%B7%B8%20%EC%9E%A1%EB%8A%94%20%EB%B0%A9%EB%B2%95.pdf)
