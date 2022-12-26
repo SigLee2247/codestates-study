@@ -76,17 +76,17 @@ public class MemberService {
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
     }
 
-//    public Pagination findPaginationMembers(int page , int size) {
-//        List<Member> memberOfPagination = new ArrayList<>();
-//        List<Member> members = findMembers();
-//        members.sort(Comparator.comparing(Member::getMemberId));//정렬
-//        int index = (page-1)*size;
-//
-//            for (int i = index ; i < (index + page >= members.size()? members.size(): index+size); i++) {
-//                memberOfPagination.add(members.get(i));
-//            }
-//        Pagination.PageInfo pageInfo  = Pagination.of(page, size, members.size(), members.size() / size);
-//        return new Pagination(memberOfPagination,pageInfo);
-//    }
+    public Pagination findPaginationMembers(int page , int size) {
+        List<Member> memberOfPagination = new ArrayList<>();
+        List<Member> members = findMembers();
+        members.sort((member1,member2)->{return Math.toIntExact(member2.getMemberId() - member1.getMemberId());});//정렬
+        int index = (page-1)*size;
+
+            for (int i = index ; i < (index + page >= members.size()? members.size(): index+size); i++) {
+                memberOfPagination.add(members.get(i));
+            }
+        Pagination.PageInfo pageInfo  = Pagination.of(page, size, members.size(), members.size() / size);
+        return new Pagination(memberOfPagination,pageInfo);
+    }
 
 }

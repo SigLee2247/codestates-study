@@ -72,7 +72,7 @@ public class MemberController {
     @GetMapping
     public ResponseEntity getMembers(@Positive @RequestParam int size,@Positive @RequestParam int page) {
         // TODO 페이지네이션을 적용하세요!
-        Pagination response = findPaginationMembers(page, size);
+        Pagination response = memberService.findPaginationMembers(page, size);
 
 
         return new ResponseEntity<>(response, HttpStatus.OK);
