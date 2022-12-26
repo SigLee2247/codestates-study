@@ -3,9 +3,12 @@ package com.codestates.member.service;
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
 import com.codestates.member.entity.Member;
+import com.codestates.entity.Pagination;
 import com.codestates.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,4 +75,18 @@ public class MemberService {
         if (member.isPresent())
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
     }
+
+//    public Pagination findPaginationMembers(int page , int size) {
+//        List<Member> memberOfPagination = new ArrayList<>();
+//        List<Member> members = findMembers();
+//        members.sort(Comparator.comparing(Member::getMemberId));//정렬
+//        int index = (page-1)*size;
+//
+//            for (int i = index ; i < (index + page >= members.size()? members.size(): index+size); i++) {
+//                memberOfPagination.add(members.get(i));
+//            }
+//        Pagination.PageInfo pageInfo  = Pagination.of(page, size, members.size(), members.size() / size);
+//        return new Pagination(memberOfPagination,pageInfo);
+//    }
+
 }
