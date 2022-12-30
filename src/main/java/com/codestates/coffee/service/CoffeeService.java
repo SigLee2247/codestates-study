@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -20,30 +21,24 @@ public class CoffeeService {
     }
 
     public Coffee createCoffee(Coffee coffee) {
-        // 커피 코드를 대문자로 변경
         String coffeeCode = coffee.getCoffeeCode().toUpperCase();
-
-        // 이미 등록된 커피 코드인지 확인
         verifyExistCoffee(coffeeCode);
         coffee.setCoffeeCode(coffeeCode);
+
 
         return coffeeRepository.save(coffee);
     }
 
     public Coffee updateCoffee(Coffee coffee) {
-        // 조회하려는 커피가 검증된 커피인지 확인(존재하는 커피인지 확인 등)
         Coffee findCoffee = findVerifiedCoffee(coffee.getCoffeeId());
 
-        Optional.ofNullable(coffee.getKorName())
-                .ifPresent(korName -> findCoffee.setKorName(korName));
-        Optional.ofNullable(coffee.getEngName())
-                .ifPresent(engName -> findCoffee.setEngName(engName));
-        Optional.ofNullable(coffee.getPrice())
-                .ifPresent(price -> findCoffee.setPrice(price));
 
-        // 추가된 부분
-        Optional.ofNullable(coffee.getCoffeeStatus())
-                .ifPresent(coffeeStatus -> findCoffee.setCoffeeStatus(coffeeStatus));
+        Optional.ofNullable(coffee.getPrice()).ifPresent(price-> findCoffee.setPrice(price));
+        Optional.ofNullable(coffee.getCoffeeStatus()).ifPresent(coffeeStatus-> findCoffee.setCoffeeStatus(coffeeStatus));
+        Optional.ofNullable(coffee.getKorName()).ifPresent(korName-> findCoffee.setKorName(korName));
+        Optional.ofNullable(coffee.getEngName()).ifPresent(engName-> findCoffee.setEngName(engName));
+
+        findCoffee.setModifiedAt(LocalDateTime.now());
 
         return coffeeRepository.save(findCoffee);
     }
@@ -71,13 +66,13 @@ public class CoffeeService {
         return findCoffee;
     }
 
-    private void verifyExistCoffee(String coffeeCode) {
+    public void verifyExistCoffee(String coffeeCode) {
         Optional<Coffee> coffee = coffeeRepository.findByCoffeeCode(coffeeCode);
         if(coffee.isPresent())
             throw new BusinessLogicException(ExceptionCode.COFFEE_CODE_EXISTS);
     }
 
-    private Coffee findVerifiedCoffeeByQuery(long coffeeId) {
+    public Coffee findVerifiedCoffeeByQuery(long coffeeId) {
         Optional<Coffee> optionalCoffee = coffeeRepository.findByCoffee(coffeeId);
         Coffee findCoffee =
                 optionalCoffee.orElseThrow(() ->

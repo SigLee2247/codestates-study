@@ -1,10 +1,17 @@
 package com.codestates.order.service;
 
+import com.codestates.coffee.repository.CoffeeRepository;
+import com.codestates.coffee.service.CoffeeService;
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
+import com.codestates.member.entity.Member;
+import com.codestates.member.repository.MemberRepository;
 import com.codestates.member.service.MemberService;
 import com.codestates.order.entity.Order;
+import com.codestates.order.entity.OrderCoffee;
 import com.codestates.order.repository.OrderRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -14,26 +21,47 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class OrderService {
     private final MemberService memberService;
     private final OrderRepository orderRepository;
+    private final CoffeeService coffeeService;
 
-    public OrderService(MemberService memberService,
-                        OrderRepository orderRepository) {
-        this.memberService = memberService;
-        this.orderRepository = orderRepository;
-    }
+    private final MemberRepository memberRepository;
 
     public Order createOrder(Order order) {
         // 회원이 존재하는지 확인
-        memberService.findVerifiedMember(order.getMember().getMemberId());
+        Member member = memberService.findVerifiedMember(order.getMember().getMemberId());
 
-        // TODO 커피가 존재하는지 조회하는 로직이 포함되어야 합니다.
+        log.info("Order = {}",order);
+
+
+        //검증 시작
+        order.getOrderCoffees()
+                .stream()
+                .forEach(orderCoffee ->
+                        coffeeService
+                                .verifyExistCoffee(
+                                        orderCoffee.getCoffee().getCoffeeCode()));//검증 확인 용
+        //검증
+        //스탬프 증가
+        int orderedCoffeeCount = order.getOrderCoffees().stream().mapToInt(OrderCoffee::getQuantity).sum();
+
+        member.getStamp().setStampCount(member.getStamp().getStampCount() + orderedCoffeeCount);
+
+        order.addMember(member);
+
+
+        log.info("스템프 값 추가 후의 Order = {}",order);
 
         return orderRepository.save(order);
     }
 
     // 메서드 추가
+
+
+
     public Order updateOrder(Order order) {
         Order findOrder = findVerifiedOrder(order.getOrderId());
 

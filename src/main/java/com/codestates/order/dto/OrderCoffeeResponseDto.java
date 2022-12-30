@@ -7,7 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class OrderCoffeeResponseDto {
+public class
+OrderCoffeeResponseDto {
     private long coffeeId;
     private String korName;
     private String engName;

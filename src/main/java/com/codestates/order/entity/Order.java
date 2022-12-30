@@ -1,17 +1,18 @@
 package com.codestates.order.entity;
 
 import com.codestates.member.entity.Member;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity(name = "ORDERS")
+
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,11 +28,21 @@ public class Order {
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
     @ManyToOne
+    @Setter(AccessLevel.NONE)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
+    private List<OrderCoffee> orderCoffees = new ArrayList<>();
+
     public void addMember(Member member) {
+
         this.member = member;
+    }
+
+    public void addOrderCoffees(OrderCoffee orderCoffee) {
+        orderCoffees.add(orderCoffee);
     }
 
     public enum OrderStatus {

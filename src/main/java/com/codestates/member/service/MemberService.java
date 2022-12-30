@@ -3,6 +3,7 @@ package com.codestates.member.service;
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
 import com.codestates.member.entity.Member;
+import com.codestates.member.entity.Stamp;
 import com.codestates.member.repository.MemberRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +22,7 @@ import java.util.Optional;
 public class MemberService {
     private final MemberRepository memberRepository;
 
+
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
@@ -28,6 +30,8 @@ public class MemberService {
     public Member createMember(Member member) {
         // 이미 등록된 이메일인지 확인
         verifyExistsEmail(member.getEmail());
+
+        member.setStamp(new Stamp());
 
         return memberRepository.save(member);
     }

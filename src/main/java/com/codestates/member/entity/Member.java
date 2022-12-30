@@ -4,6 +4,7 @@ import com.codestates.order.entity.Order;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@ToString
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,8 +41,15 @@ public class Member {
     @Column(nullable = false, name = "LAST_MODIFIED_AT")
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
+
+//    추가 시작
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "STAMP_ID")
+    private Stamp stamp;
+////    추가 끝
+
 
     public Member(String email) {
         this.email = email;
@@ -55,7 +64,9 @@ public class Member {
     public void addOrder(Order order) {
         orders.add(order);
     }
-
+//    public void setStamp(Stamp stamp){
+//
+//    }
     // 추가 된 부분
     public enum MemberStatus {
         MEMBER_ACTIVE("활동중"),
