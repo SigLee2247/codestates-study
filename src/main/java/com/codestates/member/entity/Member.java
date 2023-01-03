@@ -37,7 +37,7 @@ public class Member extends Auditable {
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
-    @OneToOne(mappedBy = "member", cascade = CascadeType.PERSIST)
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)//Persist로 하면 저장만 수행하기 때문에
     private Stamp stamp;
 
     public Member(String email) {
