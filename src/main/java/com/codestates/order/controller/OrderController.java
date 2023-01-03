@@ -47,7 +47,7 @@ public class OrderController {
 
         Order order = orderService.createOrder(mapper.orderPostDtoToOrder(orderPostDto));
 
-        log.info("order = {}", order);     //출력 X
+        log.info("order = {}", order);
 
         URI location = UriCreator.createUri(ORDER_DEFAULT_URL, order.getOrderId());
 

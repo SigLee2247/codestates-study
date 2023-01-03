@@ -19,7 +19,6 @@ public interface OrderMapper {
 
 
     default Order orderPostDtoToOrder(OrderPostDto orderPostDto) {
-        Logger log = LoggerFactory.getLogger(getClass());
 
         Order order = new Order();
         Member member = new Member();
@@ -41,6 +40,7 @@ public interface OrderMapper {
 
         return order;
     }
+//CoffeeOrder 형 리스트로 매핑 시 자동으로 매핑할 수 가 없다. 그렇기 때문에 수동으로 매핑 시켜줘야한다.
 
 
     Order orderPatchDtoToOrder(OrderPatchDto orderPatchDto);
