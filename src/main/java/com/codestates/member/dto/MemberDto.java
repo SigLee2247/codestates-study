@@ -5,6 +5,7 @@ import com.codestates.stamp.Stamp;
 import com.codestates.validator.NotSpace;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -27,6 +28,7 @@ public class MemberDto {
     }
 
     @Getter
+    @Setter
     public static class Patch {
         private long memberId;
 
