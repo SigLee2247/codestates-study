@@ -6,7 +6,7 @@ phases:
       java: corretto11
   build:
     commands:
-      - echo Build Starting on 'date'
+      - echo Build Starting on `date`
       - cd DeployServer
       - chmod +x ./gradlew
       - ./gradlew build
@@ -18,4 +18,4 @@ artifacts:
     - DeployServer/build/libs/*.jar
     - DeployServer/scripts/**
     - DeployServer/appspec.yml
-  discard-path: yes
+  discard-paths: yes
