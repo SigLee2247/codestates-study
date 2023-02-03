@@ -13,4 +13,5 @@ public class LoginStates {
     this.isLogin = isLogin;
     this.isConnectedToDatabase = isConnectedToDatabase;
   }
+
 }
